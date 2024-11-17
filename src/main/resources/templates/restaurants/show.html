@@ -29,7 +29,8 @@
 						</nav>
 
 						<!-- お気に入り追加 -->
-						<div sec:authorize="isAuthenticated()"style="display: flex; justify-content: flex-end; align-items: flex-start; margin-top: -5px;">
+						<div sec:authorize="isAuthenticated()"
+							style="display: flex; justify-content: flex-end; align-items: flex-start; margin-top: -5px;">
 							<div th:if="${favoriteId == null}">
 								<a th:href="@{/restaurants/{id}/create(id=${restaurant.getId()})}"
 									onclick="event.preventDefault(); document.getElementById('favoriteRegisterFormAdd').submit();">
@@ -61,8 +62,8 @@
 						</div>
 
 						<div class="mb-4">
-							<img th:if="${restaurant.getImageName()}" th:src="@{/storage/__${restaurant.getImageName()}__}"
-								class="w-100" alt="店舗画像">
+							<img th:if="${restaurant.getImageName()}"
+								th:src="@{/storage/__${restaurant.getImageName()}__}" class="w-100" alt="店舗画像">
 							<img th:unless="${restaurant.getImageName()}" th:src="@{/images/noImage.png}" class="w-100"
 								alt="NO IMAGE">
 						</div>
@@ -97,7 +98,8 @@
 										</div>
 
 										<div class="col">
-											<span th:text="${#numbers.formatInteger(restaurant.getLowestPrice(), 1, 'COMMA') + '円～' + #numbers.formatInteger(restaurant.getHighestPrice(), 1, 'COMMA') + '円'}"></span>
+											<span
+												th:text="${#numbers.formatInteger(restaurant.getLowestPrice(), 1, 'COMMA') + '円～' + #numbers.formatInteger(restaurant.getHighestPrice(), 1, 'COMMA') + '円'}"></span>
 										</div>
 									</div>
 
@@ -116,29 +118,30 @@
 										<div class="col-4">
 											<span class="fw-bold">住所</span>
 										</div>
-									<div class="col">
+										<div class="col">
 											<span th:text="${restaurant.getAddress()}"></span>
 										</div>
 									</div>
-										
+
 									<div class="row pb-2 mb-2 border-bottom">
 										<div class="col-4">
 											<span class="fw-bold">定休日</span>
 										</div>
-									<div class="col">
-											<span th:text="${restaurant.getRegularHoliday()}" id="regularHoliday"></span>
+										<div class="col">
+											<span th:text="${restaurant.getRegularHoliday()}"
+												id="regularHoliday"></span>
 										</div>
 									</div>
-										
+
 									<div class="row pb-2 mb-2 border-bottom">
 										<div class="col-4">
 											<span class="fw-bold">営業時間</span>
 										</div>
-									
-									<div class="col">
+
+										<div class="col">
 											<span th:text="${restaurant.getOpeningTime()}"></span>
 										</div>
-									</div>	
+									</div>
 
 									<div class="row pb-2 mb-2 border-bottom">
 										<div class="col-4">
@@ -149,7 +152,7 @@
 											<span th:text="${restaurant.getSeatingCapacity() + '席'}"></span>
 										</div>
 									</div>
-									
+
 
 									<div class="row pb-2 mb-2 border-bottom">
 										<div class="col-4">
@@ -166,8 +169,7 @@
 									<div class="card">
 										<div class="card-body">
 											<p class="card-text">予約するには<a th:href="@{/login}">ログイン</a>が必要です。</p>
-											<button type="submit"
-												class="btn text-white shadow-sm w-100 nagoyameshi-btn"
+											<button type="submit" class="btn text-white shadow-sm w-100 nagoyameshi-btn"
 												disabled>予約する</button>
 										</div>
 									</div>
@@ -180,18 +182,29 @@
 												th:action="@{/restaurants/__${restaurant.getId()}__/reservations/input}"
 												th:object="${reservationInputForm}">
 												<div class="form-group mb-2">
-													<label for="reservation_date" class="col-md-5 col-form-label text-md-left fw-bold">予約日</label>
-							                        <input type="text" class="form-control flatpickr-input active" id="reservation_date" name="reservation_date" value="" readonly="readonly">
+													<label for="reservation_date"
+														class="col-md-5 col-form-label text-md-left fw-bold">予約日</label>
+													<input type="text" class="form-control flatpickr-input active"
+														id="reservation_date" name="reservation_date" value=""
+														readonly="readonly">
 												</div>
-												
+
 												<div class="form-group mb-4">
 													<label for="reservationTime"
 														class="col-form-label text-md-left fw-bold">時間</label>
 													<div th:if="${#fields.hasErrors('reservationTime')}"
 														class="text-danger small mb-2" th:errors="*{reservationTime}">
 													</div>
+																												<!--
 													<input type="number" class="form-control"
-														th:field="*{reservationTime}" min="1">
+														th:field="*{reservationTime}" th:min="${timeList[0]}"
+														th:max="${timeList[#lists.size(timeList)-1]}">
+																												-->
+													<select class="form-select" th:field="*{reservationTime}">
+														<option th:each="time : ${timeList}" th:value="${time}"
+															th:text="${time}"></option>
+													</select>
+
 												</div>
 
 												<div class="form-group mb-4">

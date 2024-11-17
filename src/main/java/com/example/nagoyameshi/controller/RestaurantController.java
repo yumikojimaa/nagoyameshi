@@ -1,5 +1,9 @@
 package com.example.nagoyameshi.controller;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -120,6 +124,7 @@ public class RestaurantController {
 	    model.addAttribute("reviewPage", reviewPage); 
 	    model.addAttribute("restaurant", restaurant);
 	    model.addAttribute("reservationInputForm", reservationInputForm);
+	    model.addAttribute("timeList", getTimeList(restaurant));
 	  
 	 /// ユーザー情報の追加
 	    if (userDetailsImpl != null) {
@@ -146,6 +151,24 @@ public class RestaurantController {
 	    }
 
 	    return "restaurants/show";
+	}
+	private List<String> getTimeList(Restaurant restaurant) {
+		var tokens = restaurant.getOpeningTime().split("~");
+		if (tokens.length != 2) {
+			return new ArrayList<String>();
+		}
+		var startTokens = tokens[0].split(":");
+		var endTokens = tokens[1].split(":");
+		if (startTokens.length != 2 || endTokens.length != 2) {
+			return new ArrayList<String>();
+		}
+		var startHour = Integer.valueOf(startTokens[0]);
+		var endHour = Integer.valueOf(endTokens[0]);
+		var results = new ArrayList<String>();
+		for (int i = startHour; i <= endHour; i++) {
+			results.add(String.format("%d:00", i));
+		}
+		return results;
 	}
 	
 }

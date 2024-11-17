@@ -33,4 +33,6 @@ public class UserEditForm {
     
     @NotBlank(message = "職業を入力してください。")
     private String occupation;
+    
+    private Boolean useSubscription;
 }

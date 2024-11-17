@@ -8,7 +8,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +26,8 @@ import com.example.nagoyameshi.service.ReservationService;
 import com.example.nagoyameshi.service.StripeService;
 
 import jakarta.servlet.http.HttpServletRequest;
+
+
 
 
 
@@ -65,14 +66,14 @@ public class ReservationController {
          Restaurant restaurant = restaurantRepository.getReferenceById(id);
          Integer numberOfPeople = reservationInputForm.getNumberOfPeople();   
          Integer seatingcapacity = restaurant.getSeatingCapacity();
-         
+         /*
          if (numberOfPeople != null) {
              if (!reservationService.isWithinSeatingCapacity(numberOfPeople, seatingcapacity)) {
                  FieldError fieldError = new FieldError(bindingResult.getObjectName(), "numberOfPeople", "人数が定員を超えています。");
                  bindingResult.addError(fieldError);                
              }            
          }         
-         
+         */
          if (bindingResult.hasErrors()) {            
              model.addAttribute("restaurant", restaurant);            
              model.addAttribute("errorMessage", "予約内容に不備があります。"); 
