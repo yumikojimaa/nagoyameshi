@@ -11,7 +11,7 @@ public class ReservationInputForm {
     private String fromReservationDate;    
     
     @NotNull(message = "時間を入力してください。")
-    @Min(value = 1, message = "時間を設定してください。")
+    //@Min(value = 1, message = "時間を設定してください。")
     private String reservationTime; 
     
     @NotNull(message = "人数を入力してください。")

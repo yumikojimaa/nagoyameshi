@@ -116,7 +116,18 @@
                                      </div>
                                  </div>  
                                      
-                                 </div>                                 
+                                  <div class="row pb-2 mb-2 border-bottom">
+								     <div class="col-4">
+								         <span class="fw-bold">プラン</span>
+								     </div>
+								     <div class="col">
+								         <span th:text="${plan}"></span>
+										 
+									 <div class="mt-3" th:if="${canChangeCard}">
+									 	<a th:href="@{/user/change_card}" class="btn text-white shadow-sm nagoyameshi-btn text-nowrap">登録済みのクレジットカードを変更する</a>
+									 </div>
+								 </div>
+								                                
                              </div>                                                                                                                           
                          </div>
                      </div>

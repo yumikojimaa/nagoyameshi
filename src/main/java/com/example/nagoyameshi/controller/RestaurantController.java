@@ -25,6 +25,8 @@ import com.example.nagoyameshi.repository.FavoriteRepository;
 import com.example.nagoyameshi.repository.RestaurantRepository;
 import com.example.nagoyameshi.repository.ReviewRepository;
 import com.example.nagoyameshi.security.UserDetailsImpl;
+import com.example.nagoyameshi.service.ReviewService;
+
 
 @Controller
 @RequestMapping("/restaurants")
@@ -33,14 +35,16 @@ public class RestaurantController {
 	private final ReviewRepository reviewRepository;
 	private final FavoriteRepository favoriteRepository;
 	private final CategoryRepository categoryRepository;
+	private final ReviewService reviewService;
 	
 	public RestaurantController(RestaurantRepository restaurantRepository,
 			ReviewRepository reviewRepository, FavoriteRepository favoriteRepository,
-			CategoryRepository categoryRepository) {
+			CategoryRepository categoryRepository, ReviewService reviewService) {
 		this.restaurantRepository = restaurantRepository;
 		this.reviewRepository = reviewRepository;
 		this.favoriteRepository = favoriteRepository;
 		this.categoryRepository = categoryRepository;
+		this.reviewService = reviewService;
 	}
 
 	@GetMapping
@@ -85,6 +89,8 @@ public class RestaurantController {
 		} else {
 			if (order != null && order.equals("priceAsc")) {
 				restaurantPage = restaurantRepository.findAllByOrderByLowestPriceAsc(pageable);
+			} else if (order != null && order.equals("reviewDsc")) {
+				restaurantPage = reviewService.getRestaurantByReviewOrder(pageable);
 			} else {
 				restaurantPage = restaurantRepository.findAllByOrderByCreatedAtDesc(pageable);
 			}
