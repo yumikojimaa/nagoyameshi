@@ -5,28 +5,36 @@
 	<div th:replace="~{fragment :: meta}"></div>
 
 	<div th:replace="~{fragment :: styles}"></div>
-
+	
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+   <script src="js/swiper.min.js"></script>
+    
 	<title>NAGOYAMESHI</title>
 </head>
 
-<divbody>
+<body>
 	<div class="nagoyameshi-wrapper">
 		<!-- ヘッダー -->
 		<div th:replace="~{fragment :: header}"></div>
 
 		<main>
+			
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<img src="/images/main1.png" alt="Image 1">
-						<div class="swiper-slide">
-							<im src="/images/main2.png" alt="Image 2">
-								<div class="swiper-slide">
-									<img src="/images/main3.png" alt="Image 3">
-								</div>
-						</div>
+					</div>
+					<div class="swiper-slide">
+						<img src="/images/main2.png" alt="Image 2">
+					</div>
+					<div class="swiper-slide">
+						<img src="/images/main3.png" alt="Image 3">
+					</div>
+					</div>
 						<!-- ページネーション（ドット表示） -->
 						<div class="swiper-pagination"></div>
+						
 						<!-- ナビゲーションボタン（左右）-->
 						<div class="swiper-button-next"></div>
 						<div class="swiper-button-prev"></div>
@@ -35,8 +43,8 @@
 					<!-- オーバーレイテキスト -->
 					<div class="d-flex align-items-center overlay-background">
 						<div class="container nagoyameshi-container overlay-text">
-							<h1 class="text-white catchphrase-heading">名古屋ならではの味を、<br>見つけよう</h1>
-							<p class="text-white catchphrase-paragraph">NAGOYAMESHIは、<br>名古屋市のB級グルメ専門のレビューサイトです。</p>
+							<h1 class="text-white catchphrase-heading">名古屋ならではの美味しいさを、<br>見つけよう</h1>
+							<p class="text-white catchphrase-paragraph">NAGOYAMESHIは、<br>名古屋市の美味しいグルメを集めた専門サイトです。</p>
 						</div>
 					</div>
 
@@ -110,6 +118,6 @@
 	</div>
 
 	<div th:replace="~{fragment :: scripts}"></div>
-	</body>
+	</bo>
 
 </html>

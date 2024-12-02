@@ -1,6 +1,7 @@
 package com.example.nagoyameshi.controller;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +20,19 @@ import com.example.nagoyameshi.repository.UserRepository;
 import com.example.nagoyameshi.security.UserDetailsImpl;
 import com.example.nagoyameshi.service.StripeService;
 import com.example.nagoyameshi.service.UserService;
-import com.stripe.Stripe;
+//import com.stripe.Stripe;
+//import com.stripe.exception.StripeException;
+//import com.stripe.model.Price;
+//import com.stripe.model.PriceCollection;
+//import com.stripe.model.checkout.Session;
+//import com.stripe.param.checkout.SessionCreateParams;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	//@Value("${stripe.api-key}")
+	@Value("${stripe.api-key}")
 	private String stripeApiKey;
 	private final UserRepository userRepository;
 	private final UserService userService;
@@ -80,13 +86,12 @@ public class UserController {
          redirectAttributes.addFlashAttribute("successMessage", "会員情報を編集しました。");
          
          if (userEditForm.getUseSubscription()) {
-       	     Stripe.apiKey = stripeApiKey;
          
-       	  var requestUrl = new String(httpServletRequest.getRequestURL());
+       	 var requestUrl = new String(httpServletRequest.getRequestURL());
      	 var success = requestUrl.replaceAll("/user/update", "/user");
      	 var cancel = requestUrl.replaceAll("/user/update", "/user/edit");
-    	     var session = stripeService.createSubscription(userEditForm.getEmail(), success, cancel);
-          return String.format("redirect:%s", session.getUrl());
+    	var session = stripeService.createSubscription(userEditForm.getEmail(), success, cancel);
+        return String.format("redirect:%s", session.getUrl());
          }
          stripeService.deleteSubscription(userEditForm.getEmail());
 

@@ -24,24 +24,44 @@ html {
  }
  
  a:hover {
-     color: #407784;
+    color: #407784;
  }
  
  .swiper-container {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
+.swiper-wrapper {
+  display: flex;
+}
 
 .swiper-slide {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%; 
+}
+
+.swiper-pagination {
+ position: absolute;
+  top: 980px !important;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.swiper-button-next, .swiper-button-prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10; 
 }
 
 .swiper-slide img {
   width: 100%;
-  height: 480px;
+  height: 1000px;
   object-fit: cover;
 }
 
@@ -49,9 +69,9 @@ html {
   position: absolute;
   top: 64px;
   width: 100%;
-  height: 480px;
+  height: 1000px;
   background-color: rgba(0, 0, 0, 0.5); 
-  z-index: 10;
+  z-index: 5;
 }
 
 .overlay-text {
@@ -100,7 +120,7 @@ html {
    width: 100%;
    height: 0,60px;
    position: absolute;
-   bottom: 0;    
+   bottom: -100px;    
    background-color: #f2f0eb;
  }
  

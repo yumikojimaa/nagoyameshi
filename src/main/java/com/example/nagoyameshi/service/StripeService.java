@@ -1,6 +1,6 @@
 package com.example.nagoyameshi.service;
 
- import java.util.Map;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -137,7 +137,7 @@ public class StripeService {
 	}
 	// サブスクリプションの登録が完了したらデータベースにIDを保持する
 	public void processSubscriptionComple(Subscription subscription) {
-		// logger.info(subscription.toString());
+		logger.info(subscription.toString());
 		logger.info(subscription.getId());
 		logger.info(subscription.getCustomer());
 		var contract = contractRepository.findByCustomerId(subscription.getCustomer());
@@ -174,7 +174,7 @@ public class StripeService {
 			Subscription resource = Subscription.retrieve(contract.getSubscriptionId());
 			SubscriptionCancelParams params = SubscriptionCancelParams.builder().build();
 			Subscription subscription = resource.cancel(params);
-			//logger.info("cancel: {}", subscription);
+			logger.info("cancel: {}", subscription);
 		} catch (StripeException e) {
 			throw new RuntimeException(e);
 		}

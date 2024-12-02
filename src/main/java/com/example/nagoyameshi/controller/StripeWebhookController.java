@@ -65,7 +65,9 @@ public class StripeWebhookController {
         } else if ("customer.subscription.deleted".equals(event.getType())) {
             stripeService.processSubscriptionDelete((Subscription)stripeObject);
 
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+        }
+        // すべての処理が終了後のデフォルトのレスポンス
+        return new ResponseEntity<>("Webhook handled successfully", HttpStatus.OK);
     }
 }
-}
+
